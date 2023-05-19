@@ -35,8 +35,8 @@ sudo update-alternatives --set x-terminal-emulator  /usr/local/bin/blackbox
 gsettings set org.gnome.desktop.default-applications.terminal exec x-terminal-emulator
 
 # install open with any terminal nautilus addon, so you can right click and open a terminal in any directory
-sudo dnf install nautilus-python
-pip3 install --user nautilus-open-any-terminal
+sudo apt install python3-nautilus python3-full -y
+pip install --user nautilus-open-any-terminal --break-system-packages
 glib-compile-schemas ~/.local/share/glib-2.0/schemas/
 
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal blackbox
@@ -47,7 +47,7 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Blackbox Terminal"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "/usr/local/bin/blackbox"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Ctrl><Alt>t"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Alt>t"
 
 # restart nautilus
 nautilus -q 
