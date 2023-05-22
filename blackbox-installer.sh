@@ -15,10 +15,12 @@ EOF
 sudo chmod +x /usr/local/bin/blackbox
 
 #modify applications launchers to use the new terminal app, you need to re-excute the script in case you installed a new app that launches by terminal for example [ neovim, htop ]
-
 for app in $(grep -rl Terminal=true /usr/share/applications)
 do
   dot_desktop=~/.local/share/applications/$(basename $app)
+#if you do not use "" to translate files - change this string to "sed 's\Exec=\Exec=/usr/local/bin/blackbox -c \' $app > "$dot_desktop"" 
+#or "sed 's\Exec=\Exec=/flatpak run com.raggesilver.BlackBox -c \' $app > "$dot_desktop"
+#This configuration provides bug - apps via vim and neovim does not start from desktop file without file to change
   sed -E 's|Exec=(.*)|Exec=flatpak run com.raggesilver.BlackBox -c "\1"|' $app > "$dot_desktop"
   sed -i 's\Terminal=true\Terminal=false\g'  "$dot_desktop"
   sed -i '/TryExec/d'  "$dot_desktop"
