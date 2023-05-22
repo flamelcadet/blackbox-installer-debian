@@ -19,7 +19,7 @@ sudo chmod +x /usr/local/bin/blackbox
 for app in $(grep -rl Terminal=true /usr/share/applications)
 do
   dot_desktop=~/.local/share/applications/$(basename $app)
-  sed 's\Exec=\Exec=/usr/local/bin/blackbox -c \' $app > "$dot_desktop"
+  sed -E 's|Exec=(.*)|Exec=flatpak run com.raggesilver.BlackBox -c "\1"|' $app > "$dot_desktop"
   sed -i 's\Terminal=true\Terminal=false\g'  "$dot_desktop"
   sed -i '/TryExec/d'  "$dot_desktop"
   chmod +x "$dot_desktop"
